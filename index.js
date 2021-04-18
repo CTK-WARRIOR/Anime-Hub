@@ -78,7 +78,7 @@ app.get("/search", async(req, res) => {
     data = []
   })
 
-  res.render("search", {data, search})
+  res.render("search", {data, search, mainURL})
 })
 
 app.get("/download", async (req, res) => {
