@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/index.css">
+<meta property="og:title" content="CTK Anime Hub" />
+     <meta property="og:type" content="website" />
+<meta property="og:url" content="https://anime-hub.dbdandand.repl.co/" />
+<meta property="og:description" content="It is the place where you can watch anime without any ads." />
+<meta name="description" content="It is the place where you can watch anime without any ads.">
+<meta name="theme-color" content="#f39816">
+</head>
+<body>
+
+
+<div class="container mt-5">
+<form class="search" action="/search">
+  <input type="text" placeholder="Search.." name="text" value="<%= search %>">
+  <button type="submit"><i class="fa fa-search"></i></button>
+</form>
+	<div class="row justify-content-center">
+
+  <% for(let i =0;i<data.length;i++) {%>
+
+		<div class="card anime_card">
+		  <img src="<%= data[i].img %>" class="card-img-top" alt="...">
+		  <div class="card-body">
+		  	<a href="https://anime-hub.dbdandand.repl.co/anime?search=<%= data[i].title %>" class="fas fa-play play_button" data-toggle="tooltip" data-placement="bottom" title="Stream now">
+		  	</a>
+
+        <% title = data[i].title
+        if(title.length > 35) { 
+       title = (title.length > 35) ? title.substr(0, 35-1) + '...' : title;
+       } %>
+
+		    <h5 class="card-title"><%= title %></h5>
+		   		<span class="anime_info"><%= data[i].releaseDate %></span>
+		   		<span class="anime_info float-right"><i class="fas fa-star"></i> Sub</span>
+		  </div>
+		</div>
+
+    <% } %>
+    
+		
+</div>
+	</div>
+</body>
+
+</html> 

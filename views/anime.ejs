@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+     <link href="https://fonts.googleapis.com/css?family=M+PLUS+1p&amp;subset=japanese" rel="stylesheet"/>
+     <link rel="stylesheet" href="/anime.css">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta property="og:type" content="website">
+<title>CTK Anime Hub</title>
+<meta name="title" content="<%= anime.attributes.canonicalTitle %>">
+<meta name="description" content="<%= anime.attributes.synopsis %>">
+<meta property="og:url" content="<%= url %>">
+<meta property="og:title" content="Anime Hub: <%= anime.attributes.canonicalTitle %>">
+<meta property="og:description" content="<%= anime.attributes.synopsis %>">
+<meta property="og:image" content="<%= anime.attributes.posterImage.small %>">
+<meta name="theme-color" content="#f39816">
+</head>
+
+<body>
+<div class="header" style="background-image: url(<%= anime.attributes.coverImage ? anime.attributes.coverImage.large :  anime.attributes.posterImage.small %>)"></div>
+
+<div class="anime-card">
+  <img class="portada" src="<%= anime.attributes.posterImage.small %>" />
+
+  <p class="estado" style="background:#0ebeff; color:#fff;"><%= anime.attributes.status.toUpperCase() %></p>
+
+  <table class="complete-table">
+    <tr class="oee" style="background:#f39816;">
+      <th class="a">Age Rating</th>
+      <th class="a">Episode</th>
+      <th class="a">Nsfw</th>
+    </tr>
+    <tr class="oee-container">
+      <td class="b"><%= anime.attributes.ageRating  %></td>
+      <td class="b"><%= data.episodeCount || "/" %></td>
+      <td class="b"><%= anime.attributes.nsfw ? "Y" : "N" %></td>
+    </tr>
+  </table>
+
+  <p class="secuela">Content</p>
+
+</div>
+
+<div class="anime-titles">
+  <h2 class="anime-name"><%= anime.attributes.canonicalTitle %><span class="categoria"><%= anime.attributes.showType %></span></h2>
+  <span class="other-titles" title="Japones"><%= anime.attributes.titles.ja_jp %></span>
+</div>
+
+<div class="body-container">
+
+  <div class="divspoiler">Sinopsis</div>
+
+  <div>
+    <p class="spoiler">
+      <%= anime.attributes.synopsis %>
+    </p>
+  </div>
+
+  <% let category = data.genre.split(",") %>
+
+  <div class="etq">
+  <% for(let i =0;i <= category.length - 1;i++) {%>
+    <a><%= category[i] %></a>
+    <% } %>
+  </div>
+
+</div>
+<div class="body-container">
+
+  <table class="all-music">
+    <thead class="title-categoria">
+      <tr style="background:#f39816;">
+        <th>Episode Name</th>
+        <th>Watch Link</th>
+        <th>Download Link</th>
+      </tr>
+    </thead>
+    <tbody class="info-music">
+
+<% for(let i= 0;i <= data.episodeCount - 1;i++) { %>
+      <tr>
+        <td><a href=""><%= (anime.attributes.canonicalTitle + " Ep: " + (i + 1)) %></a></td>
+         <% let buff = new Buffer(`https://gogoanime.sh/${slug}-episode-${i + 1}`);
+          let base64data = buff.toString('base64');
+          %>
+        <td><a href="<%= `${url}/watch?data=${base64data}` %>">Watch Now</a></td>
+        <td><a href="<%= `${url}/download?data=${base64data}` %>">Download</a></td>
+      </tr>
+
+    <% } %>
+		
+
+    </tbody>
+  </table>
+
+</div>
+</body>
+</html>
+ 
