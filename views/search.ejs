@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="/index.css">
 <meta property="og:title" content="CTK Anime Hub" />
      <meta property="og:type" content="website" />
-<meta property="og:url" content="https://anime-hub.dbdandand.repl.co/" />
+<meta property="og:url" content="<%= mainURL %>" />
 <meta property="og:description" content="It is the place where you can watch anime without any ads." />
 <meta name="description" content="It is the place where you can watch anime without any ads.">
 <meta name="theme-color" content="#f39816">
@@ -28,7 +28,7 @@
 		<div class="card anime_card">
 		  <img src="<%= data[i].img %>" class="card-img-top" alt="...">
 		  <div class="card-body">
-		  	<a href="https://anime-hub.dbdandand.repl.co/anime?search=<%= data[i].title %>" class="fas fa-play play_button" data-toggle="tooltip" data-placement="bottom" title="Stream now">
+		  	<a href="<%= mainURL + `anime?search= ${data[i].title}` %>"class="fas fa-play play_button" data-toggle="tooltip" data-placement="bottom" title="Stream now">
 		  	</a>
 
         <% title = data[i].title
