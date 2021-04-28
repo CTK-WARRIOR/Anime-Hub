@@ -25,6 +25,23 @@ app.get('/', async (req, res) => {
   res.render('index', { data: cache.recentAnime, url: mainURL });
 });
 
+let fish = {
+  popularAnime: []
+}
+
+Anime.getPopularAnime().then(data => {
+  fish.popularAnime = data;
+}).catch(err => {})
+
+require("./cache/popularAnime.js")(fish)
+
+app.get('/popular', async (req, res) => {
+  let data = await Anime.getPopularAnime().catch(err => {
+    data = []
+  })
+  res.render('popular', { data: fish.popularAnime, url: mainURL });
+});
+
 app.get('/watch', async (req, res) => {
 	
    let string = req.query.data
