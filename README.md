@@ -1,4 +1,4 @@
-# Anime-Hub
+# Anime-Hub ( O U T  D A T E D)
 Watch Anime online without any ads (gogoanime scraper)
 
 ## ⚠ `Warning` 
