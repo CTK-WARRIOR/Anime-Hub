@@ -1,5 +1,6 @@
 const http = require('http');
-const Anime = require("ctk-anime-scraper")
+let Anime = require("ctk-anime-scraper")
+Anime = new Anime.Gogoanime({ base_url: "https://gogoanime.pe/"})
 const express = require('express');
 const { mainURL } = require("./config.json")
 const app = express();
