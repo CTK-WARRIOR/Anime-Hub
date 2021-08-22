@@ -1,11 +1,12 @@
 const http = require('http');
 let Anime = require("ctk-anime-scraper")
-Anime = new Anime.Gogoanime({ base_url: "https://gogoanime.pe/"})
+Anime = new Anime.Gogoanime({ base_url: "https://gogoanime.pe/" })
 const express = require('express');
 const { mainURL } = require("./config.json")
 const app = express();
 const fetch = require("node-fetch")
 const server = http.createServer(app);
+
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
 
@@ -15,31 +16,29 @@ let cache = {
 
 Anime.getRecentAnime().then(data => {
   cache.recentAnime = data;
-}).catch(err => {})
+}).catch(err => { })
 
-require("./cache/recentAnime.js")(cache)
+require("./cache/recentAnime.js")(cache, Anime)
 
 app.get('/', async (req, res) => {
-  let data = await Anime.getRecentAnime().catch(err => {
-    data = []
-  })
+  let data = cache.recentAnime
   res.render('index', { data: cache.recentAnime, url: mainURL });
 });
 
 app.get('/watch', async (req, res) => {
-	
-   let string = req.query.data
+
+  let string = req.query.data
   if (!string) return res.end("Invalid link!")
   let vdo;
   let name;
   try {
-  let buff = new Buffer.from(string, 'base64');
-  let text = buff.toString('ascii');
-  let link = await Anime.getFromLink(text)
-  vdo = link.download
-  name = link.name
+    let buff = new Buffer.from(string, 'base64');
+    let text = buff.toString('ascii');
+    let link = await Anime.getFromLink(text)
+    vdo = link.download
+    name = link.name
   } catch {
-     return res.end("Invalid link!")
+    return res.end("Invalid link!")
   }
   res.render('watch', { vdo, name });
 });
@@ -72,27 +71,27 @@ app.get("/anime", async (request, response) => {
 
 })
 
-app.get("/search", async(req, res) => {
+app.get("/search", async (req, res) => {
   let search = req.query.text;
-  if(!search) return res.end("its dead end :/");
+  if (!search) return res.end("its dead end :/");
   let data = await Anime.search(search).catch(err => {
     data = []
   })
 
-  res.render("search", {data, search, mainURL})
+  res.render("search", { data, search, mainURL })
 })
 
 app.get("/download", async (req, res) => {
   let string = req.query.data
   if (!string) return res.end("Invalid link!")
   try {
-  let buff = new Buffer.from(string, 'base64');
-  let text = buff.toString('ascii');
-  let link = await Anime.getFromLink(text)
-  
-  res.redirect(link.download[link.download.length - 1].link)
+    let buff = new Buffer.from(string, 'base64');
+    let text = buff.toString('ascii');
+    let link = await Anime.getFromLink(text)
+
+    res.redirect(link.download[link.download.length - 1].link)
   } catch {
-     return res.end("Invalid link!")
+    return res.end("Invalid link!")
   }
 })
 
