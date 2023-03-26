@@ -11,7 +11,7 @@ let proxyURL;
 
 const https = require('https');
 
-function proxyUrl(url) {
+function proxyUrl(url) { // Added Cors
   const proxy = "https://cors-ghoul.herokuapp.com"
   const proxyUrl = new URL(url);
   proxyUrl.protocol = 'https:';
