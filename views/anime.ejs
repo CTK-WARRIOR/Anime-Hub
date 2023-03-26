@@ -79,7 +79,7 @@
 <% for(let i= 0;i <= data.episodeCount - 1;i++) { %>
       <tr>
         <td><a href=""><%= (anime.attributes.canonicalTitle + " Ep: " + (i + 1)) %></a></td>
-         <% let buff = new Buffer(`https://gogoanime.pe/${slug}-episode-${i + 1}`);
+         <% let buff = new Buffer(`https://gogoanime.gr/${slug}-episode-${i + 1}`);
           let base64data = buff.toString('base64');
           %>
         <td><a href="<%= `${url}/watch?data=${base64data}` %>">Watch Now</a></td>
