@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+]<!DOCTYPE html>
 <html>
 <head>
 <!-- unpkg : use the latest version of Video.js -->
@@ -23,36 +23,34 @@
 <title>CTK Anime Hub</title>
 <meta name="title" content="CTK Anime Hub">
 <meta name="description" content="It is the place where you can watch anime without any ads.">
-<meta property="og:title" content="Watch <%= name %>">
+<meta property="og:title" content="Watch ">
 <meta property="og:description" content="It is the place where you can watch anime without any ads.">
 <meta name="theme-color" content="#f39816">
-
-
 
 </head>
 <body>
 
 <div class="container mt-5">
-	<div class="row justify-content-center">
-<video
-    id="my-player"
-    class="video-js vjs-theme-fantasy vjs-16-9"
-    controls
-    preload="auto"
-    data-setup='{}'>
-   <source src="<%= vdo[0].link %>" type="video/mp4" />
-  <source src="<%= vdo[0].link %>" type="video/webm" />
-  <p class="vjs-no-js">
-    To view this video please enable JavaScript, and consider upgrading to a
-    web browser that
-    <a href="https://videojs.com/html5-video-support/" target="_blank">
-      supports HTML5 video
-    </a>
+  <div class="row justify-content-center">
+    <video
+        id="my-player"
+        class="video-js vjs-theme-fantasy vjs-16-9"
+        controls
+        preload="auto"
+        data-setup='{}'>
+      <source src="https://cors-ghoul.herokuapp.com/<%= videoUrl %>" type="application/x-mpegURL">
+      <p class="vjs-no-js">
+        To view this video please enable JavaScript, and consider upgrading to a
+<a href="https://videojs.com/html5-video-support/" target="_blank">
+supports HTML5 video
+</a>
+
   </p>
 </video>
 </div>
 </div>
-	</div>
 </body>
+</html>
 
-</html> 
+
+
