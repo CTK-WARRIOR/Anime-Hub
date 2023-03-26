@@ -1,5 +1,5 @@
-# Anime-Hub ( O U T  D A T E D)
-Watch Anime online without any ads (gogoanime scraper)
+# Anime-Hub 
+Watch Anime online without any ads (Consumet API)
 
 ## ⚠ `Warning` 
 Please do not create any public websites with these codes :C
