@@ -1,56 +1,109 @@
+
+<!-- EJS Version -->
 <!DOCTYPE html>
 <html>
 <head>
-<!-- unpkg : use the latest version of Video.js -->
-<link href="https://unpkg.com/video.js/dist/video-js.min.css" rel="stylesheet">
-<script src="https://unpkg.com/video.js/dist/video.min.js"></script>
-
-<!-- City -->
-<link href="https://unpkg.com/@videojs/themes@1/dist/city/index.css" rel="stylesheet">
-
-<!-- Fantasy -->
-<link href="https://unpkg.com/@videojs/themes@1/dist/fantasy/index.css" rel="stylesheet">
-
-<!-- Forest -->
-<link href="https://unpkg.com/@videojs/themes@1/dist/forest/index.css" rel="stylesheet">
-
-<!-- Sea -->
-<link href="https://unpkg.com/@videojs/themes@1/dist/sea/index.css" rel="stylesheet">
-
- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/watch.css">
+<link rel="stylesheet" href="https://unpkg.com/plyr@3/dist/plyr.css">
 <title>CTK Anime Hub</title>
 <meta name="title" content="CTK Anime Hub">
 <meta name="description" content="It is the place where you can watch anime without any ads.">
 <meta property="og:title" content="Watch ">
 <meta property="og:description" content="It is the place where you can watch anime without any ads.">
 <meta name="theme-color" content="#f39816">
-
+<style>
+  body {
+    background-color: #111;
+  }
+  
+  .plyr__video-wrapper {
+    padding-top: 56.25%;
+    position: relative;
+  }
+  .plyr__video-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+    .container {
+        padding-top: 18vh;
+        margin: 15px auto;
+        width: 800px;
+    }
+    video {
+        width: 100%;
+    }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/hls.js"></script>
+<script src="https://unpkg.com/plyr@3"></script>
+<script src="./hls.js"></script>
 </head>
 <body>
+<div class="container"> <video controls crossorigin playsinline >
+        <source 
+            type="application/x-mpegURL" 
+            src="https://cors-ghoul.herokuapp.com/<%= videoUrl %>"
+        >
+    </video>
 
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <video
-        id="my-player"
-        class="video-js vjs-theme-fantasy vjs-16-9"
-        controls
-        preload="none"
-        data-setup='{}'>
-      <source src="https://cors-ghoul.herokuapp.com/<%= videoUrl %>" type="application/x-mpegURL">
-      <p class="vjs-no-js">
-        To view this video please enable JavaScript, and consider upgrading to a
-<a href="https://videojs.com/html5-video-support/" target="_blank">
-supports HTML5 video
-</a>
+      <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd302503391ca806e7fcc7b9b87197aec26.js"></script>
 
-  </p>
-</video>
-</div>
+  
+      <script id="rendered-js" >
+document.addEventListener("DOMContentLoaded", () => {
+  const video = document.querySelector("video");
+  const source = video.getElementsByTagName("source")[0].src;
+
+  // For more options see: https://github.com/sampotts/plyr/#options
+  // captions.update is required for captions to work with hls.js
+  const defaultOptions = {};
+
+  if (Hls.isSupported()) {
+    // For more Hls.js options, see https://github.com/dailymotion/hls.js
+    const hls = new Hls();
+    hls.loadSource(source);
+
+    // From the m3u8 playlist, hls parses the manifest and returns
+    // all available video qualities. This is important, in this approach,
+    // we will have one source on the Plyr player.
+    hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
+
+      // Transform available levels into an array of integers (height values).
+      const availableQualities = hls.levels.map(l => l.height);
+
+      // Add new qualities to option
+      defaultOptions.quality = {
+        default: availableQualities[0],
+        options: availableQualities,
+        // this ensures Plyr to use Hls to update quality level
+        forced: true,
+        onChange: e => updateQuality(e) };
+
+
+      // Initialize here
+      const player = new Plyr(video, defaultOptions);
+    });
+    hls.attachMedia(video);
+    window.hls = hls;
+  } else {
+    // default options with no quality update in case Hls is not supported
+    const player = new Plyr(video, defaultOptions);
+  }
+
+  function updateQuality(newQuality) {
+    window.hls.levels.forEach((level, levelIndex) => {
+      if (level.height === newQuality) {
+        console.log("Found quality match with " + newQuality);
+        window.hls.currentLevel = levelIndex;
+      }
+    });
+  }
+});
+//# sourceURL=pen.js
+    </script>
+
 </div>
 </body>
 </html>
-
-
-
