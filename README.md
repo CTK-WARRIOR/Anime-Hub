@@ -4,6 +4,15 @@ Watch Anime online without any ads (Consumet API)
 ## ⚠ `Warning` 
 Please do not create any public websites with these codes :C & still the download links are not working in this app 😢.
 
+## 🎉 `Planned v2 `
+- To Add Aniskip api to autoskip intros & outros
+- Rework in UI 
+- More Buttons For easy use 
+
+## 😅 `Help Wanted`
+- Rework in download links
+
+
 ## 😎 `About`
 Well, First of all i created a package to scrap the gogoanime and published on npm then i used that pkg in this repo to get data related to anime. This is just old version of animeHub but i am working on new so i may update it soon.
 
