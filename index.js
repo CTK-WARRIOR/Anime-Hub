@@ -6,9 +6,7 @@ const { mainURL  , quality } = require("./config.js")
 const app = express();
 const fetch = require("node-fetch")
 const server = http.createServer(app);
-let videoURL;
-let proxyURL;
-
+let videoUrl ;
 const https = require('https');
 
 function proxyUrl(url) { // Added Cors
@@ -67,7 +65,7 @@ app.get('/watch', async (req, res) => {
   .then((response) => response.json())
   .then((animelist) => {
     
- let video  = animelist.sources.find(source => source.quality === quality);
+ let video  = animelist.sources.find(source => source.quality === "default");
 
   if (video) {
  videoUrl = video.url;
