@@ -1,20 +1,24 @@
 {
   "name": "Anime-Search",
-  "version": "1.0.0",
+  "version": "1.4.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@silvermine/videojs-quality-selector": "^1.2.4",
+    "cors-anywhere": "^0.4.4",
     "ctk-anime-scraper": "^2.1.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "node-fetch": "^2.6.1",
+    "request": "^2.88.2",
     "videojs": "^1.0.0"
   }
 }
